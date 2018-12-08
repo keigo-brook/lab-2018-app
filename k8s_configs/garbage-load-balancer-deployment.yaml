@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: garbage-load-balancer
+  labels:
+    app: garbage-load-balancer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: garbage-load-balancer
+  template:
+    metadata:
+      labels:
+        app: garbage-load-balancer
+    spec:
+      nodeSelector:
+        nodeType: "249"
+      containers:
+      - name: garbage-load-balancer
+        image: garbage-load-balancer:v1
+        command: ["python"]
+        args: ["/app/garbage_load_balancer.py", "2"]
+
+

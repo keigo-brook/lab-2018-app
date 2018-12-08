@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: road-load-balancer
+  labels:
+    app: road-load-balancer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: road-load-balancer
+  template:
+    metadata:
+      labels:
+        app: road-load-balancer
+    spec:
+      nodeSelector:
+        nodeType: "249"
+      containers:
+      - name: road-load-balancer
+        image: road-load-balancer:v1
+        command: ["python"]
+        args: ["/app/road_load_balancer.py", "2"]
+
+

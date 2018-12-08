@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: garbage-detect-listener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: garbage-detect-listener
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: garbage-detect-listener
+        tier: backend
+    spec:
+      nodeSelector:
+        nodeType: "249"
+      containers:
+      - name: garbage-detect-listener
+        image: garbage-detect-listener:v1
+        command: ["/bin/bash"]
+        args: ["/app/run.sh", "2"]
+        ports:
+        - containerPort: 8194
+        #resources:
+        #  limits:
+        #    cpu: "1000m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: garbage-detect-listener
+spec:
+  type: LoadBalancer
+  selector:
+    app: garbage-detect-listener
+  ports:
+  - protocol: TCP
+    port: 8194
+    targetPort: 8194

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: road-damage-listener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: road-damage-listener
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: road-damage-listener
+        tier: backend
+    spec:
+      nodeSelector:
+        nodeType: "249"
+      containers:
+      - name: road-damage-listener
+        image: road-damage-listener:v1
+        command: ["/bin/bash"]
+        args: ["/app/run.sh", "2"]
+        #command: ["/bin/sleep"]
+        #args: ["20000"]
+        ports:
+        - containerPort: 8199
+        #resources:
+        #  limits:
+        #    cpu: "1000m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: road-damage-listener
+spec:
+  type: LoadBalancer
+  selector:
+    app: road-damage-listener
+  ports:
+  - protocol: TCP
+    port: 8199
+    targetPort: 8199

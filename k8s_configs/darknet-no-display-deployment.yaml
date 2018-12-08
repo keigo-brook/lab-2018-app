@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: darknet-listener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: darknet-listener
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: darknet-listener
+        tier: backend
+    spec:
+      nodeSelector:
+        nodeType: "249"
+      containers:
+      - name: darknet-listener
+        image: darknet_listener:v1
+        command: ["/bin/bash"]
+        args: ["/home/ubuntu/darknet-no-display/run.sh", "8"]
+        ports:
+        - containerPort: 8192
+        #resources:
+        #  limits:
+        #    cpu: "1000m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: darknet-listener
+spec:
+  type: LoadBalancer
+  selector:
+    app: darknet-listener
+  ports:
+  - protocol: TCP
+    port: 8192
+    targetPort: 8192

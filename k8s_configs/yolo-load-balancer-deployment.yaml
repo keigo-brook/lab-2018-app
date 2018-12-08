@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yolo-load-balancer
+  labels:
+    app: yolo-load-balancer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yolo-load-balancer
+  template:
+    metadata:
+      labels:
+        app: yolo-load-balancer
+    spec:
+      nodeSelector:
+        nodeType: "249"
+      containers:
+      - name: yolo-load-balancer
+        image: yolo_load_balancer:v1
+        command: ["python"]
+        args: ["/app/yolo_load_balancer.py", "8"]
+
