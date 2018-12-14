@@ -14,18 +14,21 @@ spec:
         app: garbage-detect-listener
         tier: backend
     spec:
+      terminationGracePeriodSeconds: 0
       nodeSelector:
-        nodeType: "249"
+        nodeType: "228"
       containers:
       - name: garbage-detect-listener
         image: localhost:5000/k_ogawa/garbage-detect-listener:v1
+        #command: ["/bin/sleep"]
+        #args: ["20000"]
         command: ["/bin/bash"]
         args: ["/app/run.sh", "2"]
         ports:
         - containerPort: 8194
-        #resources:
-        #  limits:
-        #    cpu: "1000m"
+        resources:
+          limits:
+            cpu: "1000m"
 ---
 apiVersion: v1
 kind: Service

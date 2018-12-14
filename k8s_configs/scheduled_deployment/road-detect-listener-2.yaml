@@ -14,20 +14,21 @@ spec:
         app: road-damage-listener
         tier: backend
     spec:
+      terminationGracePeriodSeconds: 0
       nodeSelector:
-        nodeType: "249"
+        nodeType: "228"
       containers:
       - name: road-damage-listener
         image: localhost:5000/k_ogawa/road-damage-listener:v1
         command: ["/bin/bash"]
-        args: ["/app/run.sh", "2"]
+        args: ["/app/run.sh", "8"]
         #command: ["/bin/sleep"]
         #args: ["20000"]
         ports:
         - containerPort: 8199
-        #resources:
-        #  limits:
-        #    cpu: "1000m"
+        resources:
+          limits:
+            cpu: "2000m"
 ---
 apiVersion: v1
 kind: Service

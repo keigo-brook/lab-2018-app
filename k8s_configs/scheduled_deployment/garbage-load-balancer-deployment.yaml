@@ -15,11 +15,11 @@ spec:
         app: garbage-load-balancer
     spec:
       nodeSelector:
-        nodeType: "249"
+        nodeType: "228"
       containers:
       - name: garbage-load-balancer
         image: localhost:5000/k_ogawa/garbage-load-balancer:v1
         command: ["/bin/bash"]
-        args: ["/app/run.sh", "2"]
+        args: ["/app/run.sh", "4"]
 
 

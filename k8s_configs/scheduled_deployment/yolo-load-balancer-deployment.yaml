@@ -15,7 +15,7 @@ spec:
         app: yolo-load-balancer
     spec:
       nodeSelector:
-        nodeType: "249"
+        nodeType: "228"
       containers:
       - name: yolo-load-balancer
         image: localhost:5000/k_ogawa/yolo_load_balancer:v1

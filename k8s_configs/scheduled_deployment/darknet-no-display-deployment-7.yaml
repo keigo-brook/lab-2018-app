@@ -14,18 +14,19 @@ spec:
         app: darknet-listener
         tier: backend
     spec:
+      terminationGracePeriodSeconds: 0
       nodeSelector:
-        nodeType: "249"
+        nodeType: "228"
       containers:
       - name: darknet-listener
         image: localhost:5000/k_ogawa/darknet_listener:v1
         command: ["/bin/bash"]
-        args: ["/home/ubuntu/darknet-no-display/run.sh", "8"]
+        args: ["/home/ubuntu/darknet-no-display/run.sh", "7"]
         ports:
         - containerPort: 8192
-        #resources:
-        #  limits:
-        #    cpu: "1000m"
+        resources:
+          limits:
+            cpu: "7000m"
 ---
 apiVersion: v1
 kind: Service

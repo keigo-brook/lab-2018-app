@@ -15,11 +15,11 @@ spec:
         app: road-load-balancer
     spec:
       nodeSelector:
-        nodeType: "249"
+        nodeType: "228"
       containers:
       - name: road-load-balancer
         image: localhost:5000/k_ogawa/road-load-balancer:v1
         command: ["/bin/bash"]
-        args: ["/app/run.sh", "2"]
+        args: ["/app/run.sh", "8"]
 
 
